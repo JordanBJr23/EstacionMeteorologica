@@ -14,6 +14,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+         
 
     }
 
@@ -140,9 +141,21 @@ public class InicioDeSesion extends javax.swing.JFrame {
     private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
         String tipo = verificarDatos();
         if (!tipo.equals("")) {
-            Menu m = new Menu(tipo);
+            if (tipo.equals("Administrador")) {
+                MenuAdministrador m = new MenuAdministrador(tipo);
+                m.setVisible(true);
+            }
+            if (tipo.equals("Invitado")) {
+                  MenuInvitado m = new MenuInvitado(tipo);
             this.dispose();
             m.setVisible(true);
+            }
+            if(tipo.equals("Investigador")){
+                  MenuInvestigador m = new MenuInvestigador(tipo);
+            this.dispose();
+            m.setVisible(true);
+            }
+          
         }
 
     }//GEN-LAST:event_btn_loginMouseClicked

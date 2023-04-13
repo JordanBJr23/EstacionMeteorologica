@@ -1,10 +1,8 @@
 package vistas;
 
 import conexion.Conexion;
-import java.awt.Color;
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.border.*;
 import modelo.clsFunciones;
 
 public class RegistroDeInvitado extends javax.swing.JFrame {

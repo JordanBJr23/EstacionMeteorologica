@@ -4,6 +4,7 @@ package modelo;
 import conexion.Conexion;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.util.Random;
 
 
 public class clsFunciones {
@@ -58,4 +59,8 @@ public class clsFunciones {
      }
      return correcto;
  }
+  public double numeroAleatorioDouble(double inicio, double limite) {
+        Random random = new Random();
+        return inicio + (limite - inicio) * random.nextDouble();
+    }
 }
