@@ -1,10 +1,10 @@
 package vistas;
 
 import conexion.Conexion;
+import java.awt.Color;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import javax.swing.border.*;
 
 public class InicioDeSesion extends javax.swing.JFrame {
 
@@ -29,7 +29,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btn_salir_JFInicio = new javax.swing.JLabel();
         btn_login = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jlAqui = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -78,10 +78,21 @@ public class InicioDeSesion extends javax.swing.JFrame {
         });
         jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("AQUÍ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 120, -1));
+        jlAqui.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jlAqui.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlAqui.setText("Aquí");
+        jlAqui.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlAquiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlAquiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlAquiMouseExited(evt);
+            }
+        });
+        jPanel1.add(jlAqui, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 40, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -122,8 +133,26 @@ public class InicioDeSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
+       String tipo = verificarDatos();
+        if (!tipo.equals("")) {
+            Menu m = new Menu(tipo);
+            this.dispose();
+            m.setVisible(true);
+        }
+       
+    }//GEN-LAST:event_btn_loginMouseClicked
+    public static void main(String[] args) {
+        InicioDeSesion in = new InicioDeSesion();
+        in.setVisible(true);
+    }
+    private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
+        this.dispose();
+        System.exit(0);
 
-        String user = txtUser.getText();
+    }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
+private String verificarDatos(){
+    String correcto = "";
+     String user = txtUser.getText();
         String contraseña = txtContraseña.getText();
         try {
             Connection conectar = this.conectar.conectar();
@@ -133,26 +162,35 @@ public class InicioDeSesion extends javax.swing.JFrame {
             ResultSet resultadoConsulta = consultar.executeQuery();
             if (resultadoConsulta.isBeforeFirst()) {
                 JOptionPane.showMessageDialog(null, "Usuario y contraseña validos");
+                  resultadoConsulta.next();
+                   correcto = resultadoConsulta.getString("tipo");
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario y contraseña invalidos");
-
             }
             this.conectar.cerrarConexion();
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-    }//GEN-LAST:event_btn_loginMouseClicked
-    public static void main(String[] args) {
-        InicioDeSesion in = new InicioDeSesion();
-        in.setVisible(true);
-    }
-    private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
+    return correcto;
+}
+    private void jlAquiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAquiMouseEntered
+        jlAqui.setForeground(Color.BLUE);
+        Border border = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE);
+        jlAqui.setBorder(border);
+    }//GEN-LAST:event_jlAquiMouseEntered
 
+    private void jlAquiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAquiMouseExited
+        jlAqui.setForeground(Color.BLACK);
+        Border border = BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLUE);
+        jlAqui.setBorder(border);
+    }//GEN-LAST:event_jlAquiMouseExited
+
+    private void jlAquiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAquiMouseClicked
         this.dispose();
-        System.exit(0);
-
-    }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
+       RegistroDeInvitado i = new RegistroDeInvitado();
+       i.setVisible(true);
+    }//GEN-LAST:event_jlAquiMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_login;
@@ -163,7 +201,6 @@ public class InicioDeSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -171,6 +208,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel jlAqui;
     public static javax.swing.JPasswordField txtContraseña;
     public static javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables

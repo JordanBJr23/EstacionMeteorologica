@@ -14,8 +14,9 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(String tipo) {
         initComponents();
+        this.setTitle(tipo);
     }
 
     /**
@@ -83,7 +84,7 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                new Menu("f").setVisible(true);
             }
         });
     }
