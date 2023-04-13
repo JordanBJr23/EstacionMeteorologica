@@ -50,6 +50,11 @@ public class InicioDeSesion extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtUser.setBorder(null);
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUserKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 250, 30));
 
         txtContraseña.setBorder(null);
@@ -133,13 +138,13 @@ public class InicioDeSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
-       String tipo = verificarDatos();
+        String tipo = verificarDatos();
         if (!tipo.equals("")) {
             Menu m = new Menu(tipo);
             this.dispose();
             m.setVisible(true);
         }
-       
+
     }//GEN-LAST:event_btn_loginMouseClicked
     public static void main(String[] args) {
         InicioDeSesion in = new InicioDeSesion();
@@ -150,9 +155,9 @@ public class InicioDeSesion extends javax.swing.JFrame {
         System.exit(0);
 
     }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
-private String verificarDatos(){
-    String correcto = "";
-     String user = txtUser.getText();
+    private String verificarDatos() {
+        String correcto = "";
+        String user = txtUser.getText();
         String contraseña = txtContraseña.getText();
         try {
             Connection conectar = this.conectar.conectar();
@@ -162,8 +167,8 @@ private String verificarDatos(){
             ResultSet resultadoConsulta = consultar.executeQuery();
             if (resultadoConsulta.isBeforeFirst()) {
                 JOptionPane.showMessageDialog(null, "Usuario y contraseña validos");
-                  resultadoConsulta.next();
-                   correcto = resultadoConsulta.getString("tipo");
+                resultadoConsulta.next();
+                correcto = resultadoConsulta.getString("tipo");
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario y contraseña invalidos");
@@ -172,8 +177,8 @@ private String verificarDatos(){
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-    return correcto;
-}
+        return correcto;
+    }
     private void jlAquiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAquiMouseEntered
         jlAqui.setForeground(Color.BLUE);
         Border border = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLUE);
@@ -188,9 +193,17 @@ private String verificarDatos(){
 
     private void jlAquiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAquiMouseClicked
         this.dispose();
-       RegistroDeInvitado i = new RegistroDeInvitado();
-       i.setVisible(true);
+        RegistroDeInvitado i = new RegistroDeInvitado();
+        i.setVisible(true);
     }//GEN-LAST:event_jlAquiMouseClicked
+
+    private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtUserKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_login;
