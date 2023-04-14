@@ -3,14 +3,15 @@ package vistas;
 import conexion.Conexion;
 import java.awt.Dimension;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import modelo.Usuario;
 import modelo.clsFunciones;
 
 public class MenuAdministrador extends javax.swing.JFrame {
 
     Conexion conectar = Conexion.getInstance();
     clsFunciones funciones = new clsFunciones();
-
 
     public MenuAdministrador(String tipo) {
         initComponents();
@@ -104,6 +105,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
 
         btnLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lista.png"))); // NOI18N
+        btnLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnListaMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, -1, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
@@ -137,9 +143,37 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
 
     private void btnGenerarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarReporteMouseClicked
-JOptionPane.showMessageDialog(null, "Hola puto");
+        JOptionPane.showMessageDialog(null, "Hola puto");
     }//GEN-LAST:event_btnGenerarReporteMouseClicked
-   
+    private ArrayList<Usuario> bajarbdEmpleados() {
+        ArrayList<Usuario> bdEmpleados = new ArrayList<>();
+        try {
+            Connection conexion = conectar.conectar();
+            PreparedStatement descargar = conexion.prepareStatement("SELECT * FROM empleados");
+            ResultSet consulta = descargar.executeQuery();
+            while (consulta.next()) {
+                String id = consulta.getString(1);
+                String nombre = consulta.getString(2);
+                int edad = consulta.getInt(3);
+                String tipo = consulta.getString(4);
+                String contraseña = consulta.getString(5);
+                Usuario us = new Usuario(id, nombre, edad, tipo, contraseña);
+                bdEmpleados.add(us);
+                
+            }
+            conectar.cerrarConexion();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return bdEmpleados;
+    }
+    private void btnListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaMouseClicked
+        ArrayList<Usuario> bdEmpleados = bajarbdEmpleados();
+        listaEmpleados lista  = new listaEmpleados(bdEmpleados);
+        lista.setVisible(true);
+        
+    }//GEN-LAST:event_btnListaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregarEmpleado;

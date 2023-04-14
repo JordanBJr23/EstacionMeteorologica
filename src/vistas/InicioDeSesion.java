@@ -151,7 +151,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
             m.setVisible(true);
             }
             if(tipo.equals("Investigador")){
-                  MenuInvestigador m = new MenuInvestigador(tipo);
+            MenuInvestigador m = new MenuInvestigador(tipo);
             this.dispose();
             m.setVisible(true);
             }
