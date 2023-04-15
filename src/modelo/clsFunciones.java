@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 public class clsFunciones {
-   private Conexion conectar = Conexion.getInstance();
+   private final Conexion conectar = Conexion.getInstance();
  public  boolean validarEdad(int edad){
      boolean correcto = false;
      
@@ -27,6 +27,7 @@ public class clsFunciones {
             PreparedStatement consultar = conexion.prepareStatement("SELECT * FROM empleados where id = ?");
             consultar.setString(1, id);
             ResultSet resultadoConsulta = consultar.executeQuery();
+             System.out.println("ejecuto");
              if (resultadoConsulta.isBeforeFirst()) {
                  JOptionPane.showMessageDialog(null, "El ID ya fue registrado");
              }else{
@@ -37,6 +38,8 @@ public class clsFunciones {
          } catch (SQLException e) {
              System.out.println(e);
          }
+     }else{
+         JOptionPane.showMessageDialog(null, "ID invalido \n debe contener almenos 9 digitos");
      }
      return correcto;
  }
@@ -55,7 +58,7 @@ public class clsFunciones {
      if (contraseña.length() >= 8) {
          correcto = true;
      } else{
-         JOptionPane.showMessageDialog(null, "Contraseña invalida");
+         JOptionPane.showMessageDialog(null, "Contraseña invalida \n debe contener almenos 8 caracteres");
      }
      return correcto;
  }

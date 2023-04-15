@@ -1,23 +1,23 @@
 package vistas;
 
 import conexion.Conexion;
-import java.awt.Dimension;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import modelo.AccionesCRUD;
 import modelo.Usuario;
 import modelo.clsFunciones;
 
-public class MenuAdministrador extends javax.swing.JFrame {
+public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRUD {
 
     Conexion conectar = Conexion.getInstance();
     clsFunciones funciones = new clsFunciones();
 
-    public MenuAdministrador(String tipo) {
+    public MenuAdministrador() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.labelMenude.setText("Menu de: " + tipo);
+        this.labelMenude.setText("Menu de: Administrador");
     }
 
     @SuppressWarnings("unchecked")
@@ -86,6 +86,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
 
         btnAgregarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregarEmpleado.png"))); // NOI18N
+        btnAgregarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarEmpleadoMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnAgregarEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -113,9 +118,19 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jPanel1.add(btnLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, -1, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/vector1.png"))); // NOI18N
@@ -125,6 +140,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, 120, -1, -1));
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar.png"))); // NOI18N
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 360));
@@ -132,7 +152,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public static void main(String[] args) {
-        MenuAdministrador in = new MenuAdministrador("");
+        MenuAdministrador in = new MenuAdministrador();
         in.setVisible(true);
     }
     private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
@@ -143,8 +163,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
 
     private void btnGenerarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarReporteMouseClicked
-        JOptionPane.showMessageDialog(null, "Hola puto");
+
     }//GEN-LAST:event_btnGenerarReporteMouseClicked
+    // metodo para "descargar" la lista de la base de datos
+
     private ArrayList<Usuario> bajarbdEmpleados() {
         ArrayList<Usuario> bdEmpleados = new ArrayList<>();
         try {
@@ -159,7 +181,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 String contraseña = consulta.getString(5);
                 Usuario us = new Usuario(id, nombre, edad, tipo, contraseña);
                 bdEmpleados.add(us);
-                
+
             }
             conectar.cerrarConexion();
         } catch (Exception e) {
@@ -167,12 +189,32 @@ public class MenuAdministrador extends javax.swing.JFrame {
         }
         return bdEmpleados;
     }
+
+    // boton para ver la lista de empleados
     private void btnListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListaMouseClicked
+        this.dispose();
         ArrayList<Usuario> bdEmpleados = bajarbdEmpleados();
-        listaEmpleados lista  = new listaEmpleados(bdEmpleados);
+        listaEmpleados lista = new listaEmpleados(bdEmpleados);
         lista.setVisible(true);
-        
+
     }//GEN-LAST:event_btnListaMouseClicked
+
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+        eliminar();
+    }//GEN-LAST:event_btnEliminarMouseClicked
+
+    private void btnAgregarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarEmpleadoMouseClicked
+        agregar();
+    }//GEN-LAST:event_btnAgregarEmpleadoMouseClicked
+
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        buscar();
+    }//GEN-LAST:event_btnBuscarMouseClicked
+
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        editar();
+
+    }//GEN-LAST:event_btnEditarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -195,4 +237,121 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelMenude;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void agregar() {
+        this.dispose();
+        MenuAdmin i = new MenuAdmin();
+        i.setVisible(true);
+    }
+
+    @Override
+    public void editar() {
+        String idbuscar = JOptionPane.showInputDialog("Ingrese id del empleado");
+        if (idbuscar != null && !idbuscar.isEmpty()) {
+
+            String id = "", nombre = "", tipo = "", contraseña = "";
+            int edad = 0;
+            try {
+                Connection conexion = conectar.conectar();
+                PreparedStatement buscar = conexion.prepareStatement("Select * from empleados Where id = ?");
+                buscar.setString(1, idbuscar);
+                ResultSet b = buscar.executeQuery();
+                boolean existe = false;
+                while (b.next()) {
+                    existe = true;
+                    id = b.getString("id");
+                    nombre = b.getString("nombre");
+                    tipo = b.getString("tipo");
+                    contraseña = b.getString("contraseña");
+                    edad = b.getInt("edad");
+                }
+                if (existe) {
+                    MenuAdmin m = new MenuAdmin(id, nombre, edad, tipo, contraseña);
+                    m.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Persona no registrada");
+                }
+                conectar.cerrarConexion();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+
+    }
+
+    @Override
+    public void eliminar() {
+        String id = JOptionPane.showInputDialog("Digite el ID del empleado que desea eliminar");
+        if (id != null && !id.isEmpty()) {
+
+            try {
+                Connection conexion = conectar.conectar();
+                PreparedStatement eliminar = conexion.prepareStatement("DELETE FROM empleados WHERE id = ?");
+                PreparedStatement buscar = conexion.prepareStatement("SELECT * FROM empleados WHERE id = ?");
+                eliminar.setString(1, id);
+                buscar.setString(1, id);
+                ResultSet consulta = buscar.executeQuery();
+                boolean existe = false;
+                int opcion = -1;
+                while (consulta.next()) {
+                    existe = true;
+                    opcion = JOptionPane.showConfirmDialog(null, "Desea eliminar a la persona: " + consulta.getString("nombre"));
+                }
+                if (existe) {
+                    if (opcion == 0) {
+                        eliminar.executeUpdate(); // ejecutamos la peticion
+                        JOptionPane.showMessageDialog(null, "Persona eliminada");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Persona no eliminada");
+
+                    }
+
+                } else if (id.equals("")) {
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Persona no registrada");
+
+                }
+                conectar.cerrarConexion();
+
+            } catch (SQLException ex) {
+                System.out.println(ex);
+
+            }
+        }
+    }
+
+    @Override
+    public void buscar() {
+        String idbuscar = JOptionPane.showInputDialog("Ingrese id del empleado");
+        if (idbuscar != null && !idbuscar.isEmpty()) {
+
+            try {
+                Connection conexion = conectar.conectar();
+                PreparedStatement buscar = conexion.prepareStatement("Select * from empleados Where id = ?");
+                buscar.setString(1, idbuscar);
+                ResultSet consulta = buscar.executeQuery();
+                boolean existe = false;
+                while (consulta.next()) {
+                    existe = true;
+                    JOptionPane.showMessageDialog(null, "Persona encontrada");
+                    JOptionPane.showMessageDialog(null, " ID: " + consulta.getString("id")
+                            + "\n Nombre: " + consulta.getString("nombre")
+                            + "\n Edad: " + consulta.getInt("edad")
+                            + "\n Tipo: " + consulta.getString("tipo"));
+
+                }
+                if (!existe) {
+                    JOptionPane.showMessageDialog(null, "Persona no registrada");
+
+                }
+                conectar.cerrarConexion();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+
+    }
 }

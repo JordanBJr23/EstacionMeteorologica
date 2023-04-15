@@ -1,9 +1,6 @@
 package vistas;
 
-import conexion.Conexion;
 import java.util.ArrayList;
-
-import javax.swing.*;
 import modelo.Usuario;
 
 
@@ -84,6 +81,8 @@ private void mostrarDatos(){
    
     private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
         this.dispose();
+        MenuAdministrador m = new MenuAdministrador();
+        m.setVisible(true);
         
 
     }//GEN-LAST:event_btn_salir_JFInicioMouseClicked

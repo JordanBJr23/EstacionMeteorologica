@@ -142,7 +142,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         String tipo = verificarDatos();
         if (!tipo.equals("")) {
             if (tipo.equals("Administrador")) {
-                MenuAdministrador m = new MenuAdministrador(tipo);
+                MenuAdministrador m = new MenuAdministrador();
                 m.setVisible(true);
             }
             if (tipo.equals("Invitado")) {

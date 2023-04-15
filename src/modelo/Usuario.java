@@ -59,7 +59,7 @@ public  class Usuario {
 
     @Override
     public String toString() {
-        return id + " " + nombre + " " + edad + " " + tipo + " " + contrasena;
+        return id + " / " + nombre + " / " + edad + " / " + tipo + " / " + contrasena;
     }
      
    
