@@ -5,9 +5,9 @@ import modelo.Usuario;
 
 
 public class listaEmpleados extends javax.swing.JFrame {
-    private ArrayList<Usuario> bd;
+    private final ArrayList<Usuario> bd;
 
-    public listaEmpleados(ArrayList bd) {
+    public listaEmpleados(ArrayList<Usuario> bd) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);

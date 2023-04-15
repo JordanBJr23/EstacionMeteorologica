@@ -159,10 +159,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btn_loginMouseClicked
-    public static void main(String[] args) {
-        InicioDeSesion in = new InicioDeSesion();
-        in.setVisible(true);
-    }
+   
     private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
         this.dispose();
         System.exit(0);

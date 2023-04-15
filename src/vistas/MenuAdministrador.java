@@ -152,10 +152,7 @@ public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRU
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public static void main(String[] args) {
-        MenuAdministrador in = new MenuAdministrador();
-        in.setVisible(true);
-    }
+    
     private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
         this.dispose();
         InicioDeSesion i = new InicioDeSesion();

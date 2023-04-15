@@ -81,10 +81,7 @@ public class MenuInvitado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public static void main(String[] args) {
-        MenuInvitado in = new MenuInvitado("");
-        in.setVisible(true);
-    }
+   
     private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
         this.dispose();
         InicioDeSesion i = new InicioDeSesion();

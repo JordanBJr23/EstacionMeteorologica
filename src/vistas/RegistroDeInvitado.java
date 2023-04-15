@@ -21,7 +21,6 @@ public class RegistroDeInvitado extends javax.swing.JFrame {
 
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -185,10 +184,7 @@ public class RegistroDeInvitado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public static void main(String[] args) {
-        RegistroDeInvitado in = new RegistroDeInvitado();
-        in.setVisible(true);
-    }
+    
     private void btn_salir_JFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_salir_JFInicioMouseClicked
         this.dispose();
         InicioDeSesion i = new InicioDeSesion();
