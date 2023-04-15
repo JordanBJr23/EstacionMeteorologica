@@ -1,10 +1,11 @@
 
 package main;
-
+import vistas.InicioDeSesion;
 
 public class main {
     public static void main(String[] args) {
-        System.out.println("Hola grupo");
-        System.out.println("pusssh");
+        InicioDeSesion iniciar = new InicioDeSesion();
+        iniciar.setVisible(true);
+        // crear la clase reporte
     }
 }

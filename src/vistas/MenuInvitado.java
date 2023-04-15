@@ -3,14 +3,15 @@ package vistas;
 import conexion.Conexion;
 import java.awt.Dimension;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import modelo.Reporte;
 import modelo.clsFunciones;
 
 public class MenuInvitado extends javax.swing.JFrame {
 
     Conexion conectar = Conexion.getInstance();
     clsFunciones funciones = new clsFunciones();
-
 
     public MenuInvitado(String tipo) {
         initComponents();
@@ -69,6 +70,11 @@ public class MenuInvitado extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
 
         btnGenerarReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/generarReporte.png"))); // NOI18N
+        btnGenerarReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGenerarReporteMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnGenerarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 360));
@@ -85,7 +91,11 @@ public class MenuInvitado extends javax.swing.JFrame {
         i.setVisible(true);
 
     }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
-   
+
+    private void btnGenerarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarReporteMouseClicked
+        Reporte reporte = funciones.generarReporte();
+        JOptionPane.showMessageDialog(null, reporte);    }//GEN-LAST:event_btnGenerarReporteMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnGenerarReporte;

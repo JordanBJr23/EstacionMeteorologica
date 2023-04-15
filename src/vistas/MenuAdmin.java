@@ -305,7 +305,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 modificar.setString(3, tipo);
                 modificar.setString(4, contraseña);
                 modificar.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Persona editada correctamente");
+                JOptionPane.showMessageDialog(null, "Empleado editada correctamente");
                 this.dispose();
                 conectar.cerrarConexion();
 

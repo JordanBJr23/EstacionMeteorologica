@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import modelo.AccionesCRUD;
+import modelo.Reporte;
 import modelo.Usuario;
 import modelo.clsFunciones;
 
@@ -161,10 +162,6 @@ public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRU
         i.setVisible(true);
 
     }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
-
-    private void btnGenerarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarReporteMouseClicked
-
-    }//GEN-LAST:event_btnGenerarReporteMouseClicked
     // metodo para "descargar" la lista de la base de datos
 
     private ArrayList<Usuario> bajarbdEmpleados() {
@@ -215,6 +212,12 @@ public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRU
         editar();
 
     }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void btnGenerarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarReporteMouseClicked
+         Reporte reporte = funciones.generarReporte();
+         JOptionPane.showMessageDialog(null, reporte);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerarReporteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -271,7 +274,7 @@ public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRU
                     m.setVisible(true);
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Persona no registrada");
+                    JOptionPane.showMessageDialog(null, "Empleado no registrado");
                 }
                 conectar.cerrarConexion();
             } catch (SQLException e) {
@@ -297,21 +300,21 @@ public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRU
                 int opcion = -1;
                 while (consulta.next()) {
                     existe = true;
-                    opcion = JOptionPane.showConfirmDialog(null, "Desea eliminar a la persona: " + consulta.getString("nombre"));
+                    opcion = JOptionPane.showConfirmDialog(null, "Desea eliminar al empleado: " + consulta.getString("nombre"));
                 }
                 if (existe) {
                     if (opcion == 0) {
                         eliminar.executeUpdate(); // ejecutamos la peticion
-                        JOptionPane.showMessageDialog(null, "Persona eliminada");
+                        JOptionPane.showMessageDialog(null, "Empleado eliminado");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Persona no eliminada");
+                        JOptionPane.showMessageDialog(null, "Empleado no eliminado");
 
                     }
 
                 } else if (id.equals("")) {
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Persona no registrada");
+                    JOptionPane.showMessageDialog(null, "Empleado no registrado");
 
                 }
                 conectar.cerrarConexion();
@@ -336,7 +339,7 @@ public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRU
                 boolean existe = false;
                 while (consulta.next()) {
                     existe = true;
-                    JOptionPane.showMessageDialog(null, "Persona encontrada");
+                    JOptionPane.showMessageDialog(null, "Empleado no encontrado");
                     JOptionPane.showMessageDialog(null, " ID: " + consulta.getString("id")
                             + "\n Nombre: " + consulta.getString("nombre")
                             + "\n Edad: " + consulta.getInt("edad")
@@ -344,7 +347,7 @@ public class MenuAdministrador extends javax.swing.JFrame implements AccionesCRU
 
                 }
                 if (!existe) {
-                    JOptionPane.showMessageDialog(null, "Persona no registrada");
+                    JOptionPane.showMessageDialog(null, "Empleado no registrado");
 
                 }
                 conectar.cerrarConexion();

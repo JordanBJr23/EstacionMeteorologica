@@ -2,13 +2,17 @@ package vistas;
 
 import conexion.Conexion;
 import javax.swing.*;
+import modelo.MiExcepcion;
+import modelo.Reporte;
 import modelo.clsFunciones;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MenuInvestigador extends javax.swing.JFrame {
 
     Conexion conectar = Conexion.getInstance();
     clsFunciones funciones = new clsFunciones();
-
 
     public MenuInvestigador(String tipo) {
         initComponents();
@@ -133,11 +137,38 @@ public class MenuInvestigador extends javax.swing.JFrame {
         i.setVisible(true);
 
     }//GEN-LAST:event_btn_salir_JFInicioMouseClicked
+    private void guardarReporte(Reporte reporte) throws MiExcepcion {
+        try {
+            Connection conexion = conectar.conectar();
+            PreparedStatement guardar = conexion.prepareStatement("Insert into reporte values(?,?,?,?,?,?,?,?,?) ");
+            guardar.setString(1, "0");
+            guardar.setDouble(2, reporte.getTemperatura());
+            guardar.setDouble(3, reporte.getHumedad());
+            guardar.setDouble(4, reporte.getvViento());
+            guardar.setDouble(5, reporte.getPrecipitacion());
+            guardar.setDouble(6, reporte.getNubosidad());
+            guardar.setDouble(7, reporte.getRadiacionSolar());
+            guardar.setDouble(8, reporte.getPresionAtmosferica());
+            guardar.setTimestamp(9, reporte.getFechaActual());
+            guardar.executeUpdate(); // hacemos la petionc
+            JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+            conectar.cerrarConexion();
 
+        } catch (SQLException e) {
+            throw new MiExcepcion("Error al guardar el reporte", e);
+        }
+    }
     private void btnGenerarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarReporteMouseClicked
-JOptionPane.showMessageDialog(null, "Hola puto");
+        Reporte reporte = funciones.generarReporte();
+        try {
+            guardarReporte(reporte);
+        } catch (MiExcepcion ex) {
+            System.err.println(ex);
+        }
+        JOptionPane.showMessageDialog(null, reporte);
+
     }//GEN-LAST:event_btnGenerarReporteMouseClicked
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAgregarEmpleado;
